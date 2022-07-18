@@ -9,9 +9,9 @@
 <body>
     <h1>Post List</h1>
     <ul>
-        <li>1. html</li>
-        <li>2. css</li>
-        <li>3. javascript</li>
+        {% for p in post_list %}
+            <li>{{ p.pk }}. {{ p.title }} </li>
+        {% endfor %}
     </ul>
 </body>
 </html>

@@ -13,4 +13,4 @@ def post_list(req):
         {'pk': 5, 'title': 'django', 'content': 'django is ...'},
     ]
 
-    return render(req, 'blog/post_list.html')
+    return render(req, 'blog/post_list.html', {"post_list": posts})
