@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'blog.apps.BlogConfig', # 'blog'
+    'toy.apps.ToyConfig', # 'toy'
 ]
 
 MIDDLEWARE = [
