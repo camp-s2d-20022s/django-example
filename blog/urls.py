@@ -1,9 +1,9 @@
 from django.http import HttpRequest, HttpResponse
 from django.urls import include, path
 
-def blog(req):
-    return HttpResponse('blog')
+from . import views
 
 urlpatterns = [
-    path('', blog)
+    path('', views.index),
+    path('post_list', views.post_list)
 ]
