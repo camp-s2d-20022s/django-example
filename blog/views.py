@@ -13,4 +13,4 @@ def post_list(req):
         {'pk': 5, 'title': 'django', 'content': 'django is ...'},
     ]
 
-    return HttpResponse(posts)
+    return render(req, 'blog/post_list.html')
