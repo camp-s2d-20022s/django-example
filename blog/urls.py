@@ -4,7 +4,8 @@ from . import views
 
 urlpatterns = [
     path('', views.index),
-    path('post_list', views.post_list)
+    path('post_list', views.post_list),
+    path('post_detail/<int:pk>/', views.post_detail)
 ]
 
 # from django.views.generic import ListView
