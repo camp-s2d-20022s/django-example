@@ -10,7 +10,7 @@
     <h1>Post List</h1>
     <ul>
         {% for p in post_list %}
-            <li>{{ p.pk }}. {{ p.title }} </li>
+            <li>{{ forloop.counter }} {{ p.title }} </li>
         {% endfor %}
     </ul>
 </body>
