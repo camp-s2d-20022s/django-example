@@ -12,3 +12,6 @@ def post_list(req):
 def post_detail(req, pk):
     post = models.Post.objects.get(pk=pk)
     return render(req, 'blog/post_detail.html', {"post": post})
+
+def post_create(req):
+    return render(req, 'blog/post_create.html')
