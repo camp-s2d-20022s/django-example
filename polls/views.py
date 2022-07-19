@@ -5,8 +5,7 @@ from . import models
 
 def index(req:HttpRequest) -> HttpResponse:
     latest_question_list = models.Question.objects.order_by('-publish_date')[:5]
-    output = ', '.join([q.question_text for q in latest_question_list])
-    return HttpResponse(output)
+    return render(req, 'polls/index.html', {'latest_question_list': latest_question_list})
 
 def detail(req, question_id):
     return HttpResponse(f"You're looking at question {question_id}.")
