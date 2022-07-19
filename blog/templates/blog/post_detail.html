@@ -10,6 +10,6 @@
     <h1>{{ post.title }}</h1>
     <div>{{ post.content }}</div>
     <hr>
-    <a href="/blog/post_list/">리스트로</a>
+    <a href="{% url 'blog:list' %}">리스트로</a>
 </body>
 </html>

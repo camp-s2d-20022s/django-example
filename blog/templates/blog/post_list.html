@@ -10,7 +10,7 @@
     <h1>Post List</h1>
     <ul>
         {% for p in post_list %}
-            <li><a href="/blog/post_detail/{{ p.pk }}">{{ forloop.counter }} {{ p.title }}</a></li>
+            <li><a href="{% url 'blog:detail' p.pk %}">{{ forloop.counter }} {{ p.title }}</a></li>
         {% endfor %}
     </ul>
 </body>
