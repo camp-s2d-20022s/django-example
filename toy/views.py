@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 
 def gugu(req, num):
@@ -18,3 +19,8 @@ def gugu(req, num):
     print(3, "\n".join(mul_table))
 
     return render(req, 'toy/gugu.html', {'mul_table': mul_table})
+
+import requests
+def naver(req):
+    res = requests.get("https://naver.com/")
+    return HttpResponse(res.text)
