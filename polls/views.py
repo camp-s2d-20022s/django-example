@@ -1,7 +1,7 @@
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 
-def index(req):
+def index(req:HttpRequest) -> HttpResponse:
     return HttpResponse("polls")
 
 def detail(req, question_id):
