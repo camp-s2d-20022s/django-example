@@ -1,8 +1,12 @@
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 
+from . import models
+
 def index(req:HttpRequest) -> HttpResponse:
-    return HttpResponse("polls")
+    latest_question_list = models.Question.objects.order_by('-publish_date')[:5]
+    output = ', '.join([q.question_text for q in latest_question_list])
+    return HttpResponse(output)
 
 def detail(req, question_id):
     return HttpResponse(f"You're looking at question {question_id}.")
