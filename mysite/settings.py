@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'blog.apps.BlogConfig', # 'blog'
     'toy.apps.ToyConfig', # 'toy'
+    'polls.apps.PollsConfig', # 'polls'
 ]
 
 MIDDLEWARE = [

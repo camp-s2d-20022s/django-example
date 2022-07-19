@@ -1,8 +1,8 @@
-from django.http import HttpResponse
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from . import models
 
-def index(req):
+def index(req: HttpRequest) -> HttpResponse:
     return HttpResponse('blog')
 
 def post_list(req):
