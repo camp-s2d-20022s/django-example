@@ -13,5 +13,7 @@
             <li><a href="{% url 'blog:detail' p.pk %}">{{ forloop.counter }} {{ p.title }}</a></li>
         {% endfor %}
     </ul>
+    <hr>
+    <a href="{% url 'blog:create' %}">새글쓰기</a>
 </body>
 </html>
