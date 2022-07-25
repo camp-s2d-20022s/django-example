@@ -5,6 +5,7 @@ from django.urls import reverse
 from . import models
 
 def index(req:HttpRequest) -> HttpResponse:
+    print(req.user, req.user.email, req.user.last_login)
     latest_question_list = models.Question.objects.order_by('-publish_date')[:5]
 
     if req.session.get('count') is None:
