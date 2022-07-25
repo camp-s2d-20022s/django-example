@@ -6,9 +6,19 @@ from . import models
 
 def index(req:HttpRequest) -> HttpResponse:
     latest_question_list = models.Question.objects.order_by('-publish_date')[:5]
-    return render(req, 'polls/index.html', {'latest_question_list': latest_question_list})
+
+    if req.session.get('count') is None:
+        req.session['count'] = 0
+    req.session['count'] += 1
+    print(req.session['count'])
+
+    res = render(req, 'polls/index.html', {'latest_question_list': latest_question_list})
+    res.set_cookie('univ', 'hgu')
+    return res
 
 def detail(req, question_id):
+    print(req.COOKIES['univ'])
+    print(req.session['count'])
     # try:
     #     question = models.Question.objects.get(pk=question_id)
     # except models.Question.DoesNotExist:
