@@ -18,9 +18,9 @@ def detail(req, question_id):
         raise Http404("Question does not exist")
     return render(req, 'polls/detail.html', {'question': question[0]})
 
-def results(req, question_id):
-    response = "You're looking at the results of question {0}. {1} {0}"
-    return HttpResponse(response.format(question_id, "aaa"))
+def results(request, question_id):
+    question = get_object_or_404(models.Question, pk=question_id)
+    return render(request, 'polls/results.html', {'question': question})
 
 def vote(request, question_id):
     question = get_object_or_404(models.Question, pk=question_id)
