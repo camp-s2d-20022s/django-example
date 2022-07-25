@@ -15,10 +15,13 @@ def post_detail(req, pk):
     return render(req, 'blog/post_detail.html', {"post": post})
 
 def post_create(req):
-    form = forms.PostForm()
     if req.method == "POST":
-        post = models.Post(title=req.POST["title"], content=req.POST['content'])
-        post.save()
+        form = forms.PostForm(req.POST)
+        if form.is_valid():
+            post = models.Post(**form.cleaned_data)
+            post.save()
         return redirect("/blog/post_list/")
+    else:
+        form = forms.PostForm()
     
     return render(req, 'blog/post_create.html', {'form': form})
