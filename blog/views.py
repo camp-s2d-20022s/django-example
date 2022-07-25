@@ -1,6 +1,7 @@
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 from . import models
+from . import forms
 
 def index(req: HttpRequest) -> HttpResponse:
     return HttpResponse('blog')
@@ -14,9 +15,10 @@ def post_detail(req, pk):
     return render(req, 'blog/post_detail.html', {"post": post})
 
 def post_create(req):
+    form = forms.PostForm()
     if req.method == "POST":
         post = models.Post(title=req.POST["title"], content=req.POST['content'])
         post.save()
         return redirect("/blog/post_list/")
     
-    return render(req, 'blog/post_create.html')
+    return render(req, 'blog/post_create.html', {'form': form})

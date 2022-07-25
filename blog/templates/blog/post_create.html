@@ -10,8 +10,9 @@
     <h1>Post Create</h1>
     <form method="post">
         {% csrf_token %}
-        <div><input type="text" id="title" name="title"></div>
-        <div><textarea id="content" name="content"></textarea></div>
+        <table>
+            {{ form }}
+        </table>
         <div><input type="submit" value="저장"></div>
     </form>
 </body>
