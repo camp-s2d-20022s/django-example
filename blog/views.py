@@ -16,10 +16,9 @@ def post_detail(req, pk):
 
 def post_create(req):
     if req.method == "POST":
-        form = forms.PostForm(req.POST)
+        form = forms.PostModelForm(req.POST)
         if form.is_valid():
-            post = models.Post(**form.cleaned_data)
-            post.save()
+            form.save()
         return redirect("/blog/post_list/")
     else:
         form = forms.PostForm()
