@@ -55,6 +55,8 @@ def api_post(req, pk):
         p.save()
         return JsonResponse({"results": model_to_dict(p)})
     elif req.method == 'DELETE':
-        pass
+        p = models.Post.objects.get(pk=pk)
+        p.delete()
+        return JsonResponse({"results": "ok"})
     else:
         return HttpResponse(status=405)
