@@ -1,4 +1,4 @@
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from . import models
 from . import forms
@@ -25,5 +25,11 @@ def post_create(req):
     
     return render(req, 'blog/post_create.html', {'form': form})
 
-def api_post(req):
-    return HttpResponse("json")
+def api_post_list(req):
+    posts = models.Post.objects.all()
+    return JsonResponse({"results": list(posts.values())})
+
+from django.forms.models import model_to_dict
+def api_post(req, pk):
+    post = models.Post.objects.get(pk=pk)
+    return JsonResponse({"results": model_to_dict(post)})
