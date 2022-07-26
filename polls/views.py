@@ -11,7 +11,7 @@ def index(req:HttpRequest) -> HttpResponse:
     return res
 
 def detail(req, question_id):
-    question = models.Question.objects.filter(pk=question_id)
+    question = models.Question.objects.filter(pk=question_id, publish_date__lt=timezone.now())
     if len(question) == 0:
         raise Http404("Question does not exist")
     return render(req, 'polls/detail.html', {'question': question[0]})
