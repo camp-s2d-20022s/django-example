@@ -24,3 +24,6 @@ def post_create(req):
         form = forms.PostForm()
     
     return render(req, 'blog/post_create.html', {'form': form})
+
+def api_post(req):
+    return HttpResponse("json")
