@@ -45,17 +45,25 @@ def api_post_list(req):
 @csrf_exempt
 def api_post(req, pk):
     if req.method == 'GET':
-        post = models.Post.objects.get(pk=pk)
-        return JsonResponse({"results": model_to_dict(post)})
+        post = models.Post.objects.filter(pk=pk)
+        if not post:
+            return HttpResponse(status=404)
+        return JsonResponse({"results": model_to_dict(post[0])})
     elif req.method == 'PUT':
         body = json.loads(req.body.decode('utf-8'))
-        p = models.Post.objects.get(pk=pk)
+        post = models.Post.objects.fitler(pk=pk)
+        if not post:
+            return HttpResponse(status=404)
+        p = post[0]
         p.title = body['title']
         p.content = body['content']
         p.save()
         return JsonResponse({"results": model_to_dict(p)})
     elif req.method == 'DELETE':
-        p = models.Post.objects.get(pk=pk)
+        post = models.Post.objects.fitler(pk=pk)
+        if not post:
+            return HttpResponse(status=404)
+        p = post[0]
         p.delete()
         return JsonResponse({"results": "ok"})
     else:
