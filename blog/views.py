@@ -25,11 +25,24 @@ def post_create(req):
     
     return render(req, 'blog/post_create.html', {'form': form})
 
-def api_post_list(req):
-    posts = models.Post.objects.all()
-    return JsonResponse({"results": list(posts.values())})
-
+from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import model_to_dict
+
+@csrf_exempt
+def api_post_list(req):
+    if req.method == 'GET':
+        posts = models.Post.objects.all()
+        return JsonResponse({"results": list(posts.values())})
+    elif req.method == 'POST':
+        print("111")
+        return JsonResponse({"results": "ok"})
+    else:
+        return HttpResponse(status=405)
+
+@csrf_exempt
 def api_post(req, pk):
-    post = models.Post.objects.get(pk=pk)
-    return JsonResponse({"results": model_to_dict(post)})
+    if req.method == 'GET':
+        post = models.Post.objects.get(pk=pk)
+        return JsonResponse({"results": model_to_dict(post)})
+    else:
+        return HttpResponse(status=405)
