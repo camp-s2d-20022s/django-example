@@ -51,7 +51,7 @@ def api_post(req, pk):
         return JsonResponse({"results": model_to_dict(post[0])})
     elif req.method == 'PUT':
         body = json.loads(req.body.decode('utf-8'))
-        post = models.Post.objects.fitler(pk=pk)
+        post = models.Post.objects.filter(pk=pk)
         if not post:
             return HttpResponse(status=404)
         p = post[0]
@@ -60,7 +60,7 @@ def api_post(req, pk):
         p.save()
         return JsonResponse({"results": model_to_dict(p)})
     elif req.method == 'DELETE':
-        post = models.Post.objects.fitler(pk=pk)
+        post = models.Post.objects.filter(pk=pk)
         if not post:
             return HttpResponse(status=404)
         p = post[0]
