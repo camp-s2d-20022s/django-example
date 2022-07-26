@@ -1,31 +1,16 @@
 from django.http import Http404, HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
+from django.utils import timezone
 
 from . import models
 
 def index(req:HttpRequest) -> HttpResponse:
-    if not req.user.is_anonymous:
-        print(req.user, req.user.email, req.user.last_login)
-        
-    latest_question_list = models.Question.objects.order_by('-publish_date')[:5]
-
-    if req.session.get('count') is None:
-        req.session['count'] = 0
-    req.session['count'] += 1
-    print(req.session['count'])
-
+    latest_question_list = models.Question.objects.filter(publish_date__lt=timezone.now()).order_by('-publish_date')[:5]
     res = render(req, 'polls/index.html', {'latest_question_list': latest_question_list})
-    res.set_cookie('univ', 'hgu')
     return res
 
 def detail(req, question_id):
-    print(req.COOKIES['univ'])
-    print(req.session['count'])
-    # try:
-    #     question = models.Question.objects.get(pk=question_id)
-    # except models.Question.DoesNotExist:
-    #     raise Http404("Question does not exist")
     question = models.Question.objects.filter(pk=question_id)
     if len(question) == 0:
         raise Http404("Question does not exist")
