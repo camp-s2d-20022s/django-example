@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-hq6bw**p3!e0@09n^1c9h_1d*-zwaax#su8xx3xcxjy)qp*(%@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -124,6 +124,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -134,3 +135,20 @@ LOGIN_REDIRECT_URL = '/polls/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# LOGGING = {
+#    "version": 1,
+#    "disable_existing_loggers": False,
+#    "handlers": {
+#        "console": {
+#            "level": "DEBUG",
+#            "class": "logging.StreamHandler",
+#        },
+#    },
+#    "loggers": {
+#        "django.db.backends": {
+#            "handlers": ["console"],
+#            "level": "DEBUG",
+#        },
+#    },
+# }
