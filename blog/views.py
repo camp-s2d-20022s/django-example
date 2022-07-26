@@ -27,6 +27,7 @@ def post_create(req):
 
 from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import model_to_dict
+import json
 
 @csrf_exempt
 def api_post_list(req):
@@ -34,8 +35,10 @@ def api_post_list(req):
         posts = models.Post.objects.all()
         return JsonResponse({"results": list(posts.values())})
     elif req.method == 'POST':
-        print("111")
-        return JsonResponse({"results": "ok"})
+        body = json.loads(req.body.decode('utf-8'))
+        p = models.Post(title=body['title'], content=body['content'])
+        p.save()
+        return JsonResponse({"results": model_to_dict(p)})
     else:
         return HttpResponse(status=405)
 
