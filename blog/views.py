@@ -49,7 +49,7 @@ def api_post(req, pk):
         return JsonResponse({"results": model_to_dict(post)})
     elif req.method == 'PUT':
         body = json.loads(req.body.decode('utf-8'))
-        p = models.Post.objects.get(pk=body['id'])
+        p = models.Post.objects.get(pk=pk)
         p.title = body['title']
         p.content = body['content']
         p.save()
