@@ -5,8 +5,16 @@ from rest_framework import status
 from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.reverse import reverse
 from api.models import Snippet
 from api.serializers import SnippetSerializer, SnippetModelSerializer
+
+@api_view(['GET'])
+def api_root(request, format=None):
+    return Response({
+        'users': reverse('user-list', request=request, format=format),
+        'snippets': reverse('snippet-list', request=request, format=format)
+    })
 
 @api_view(['GET', 'POST'])
 def snippet_list(request, format=None):
