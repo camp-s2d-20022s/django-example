@@ -53,8 +53,19 @@ def snippet_detail(request, pk, format=None):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-
 from rest_framework.views import APIView
+from rest_framework import generics
+from api.serializers import UserSerializer
+from django.contrib.auth.models import User
+
+class UserList(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 class SnippetList(APIView):
     """
