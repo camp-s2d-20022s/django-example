@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     'django_extensions',
     'rest_framework',
+    'drf_yasg',
 
     'blog.apps.BlogConfig', # 'blog'
     'toy.apps.ToyConfig', # 'toy'
