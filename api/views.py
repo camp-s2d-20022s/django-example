@@ -16,8 +16,14 @@ def api_root(request, format=None):
     return Response({
         'users': reverse('user-list', request=request, format=format),
         'snippets': reverse('snippet-list', request=request, format=format),
-        'posts': reverse('post-list', request=request, format=format)
+        'posts': reverse('post-list', request=request, format=format),
+        'profile': reverse('profile', request=request, format=format),
     })
+
+@api_view(['GET'])
+def profile(request, format=None):
+    if request.method == "GET":
+        return Response({"username": "111", "email": "blackdew@gmail.com"})
 
 class PostList(generics.ListCreateAPIView):
     queryset = Post.objects.all()
