@@ -18,7 +18,16 @@ def api_root(request, format=None):
         'snippets': reverse('snippet-list', request=request, format=format),
         'posts': reverse('post-list', request=request, format=format),
         'profile': reverse('profile', request=request, format=format),
+        'login': reverse('login', request=request, format=format),
     })
+
+
+@api_view(['POST'])
+def api_login(request, format=None):
+    if request.method == 'POST':
+       return Response(status=status.HTTP_200_OK)
+    return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
 
 @api_view(['GET'])
 @permission_classes([permissions.IsAuthenticated])
