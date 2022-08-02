@@ -21,11 +21,25 @@ def api_root(request, format=None):
         'login': reverse('login', request=request, format=format),
     })
 
+import json
+from django.contrib.auth.hashers import check_password
+from django.contrib.auth import login
 
 @api_view(['POST'])
 def api_login(request, format=None):
     if request.method == 'POST':
-       return Response(status=status.HTTP_200_OK)
+        body = json.loads(request.body)
+
+        users = User.objects.filter(username=body.get('username'))
+        if len(users) == 0:
+            return Response({"detail": "user not found"}, status=status.HTTP_404_NOT_FOUND)
+        elif not check_password(body['password'], users[0].password):
+            return Response({"detail": "password not matched"}, status=status.HTTP_406_NOT_ACCEPTABLE)
+
+        # login
+        login(request, users[0])
+        return Response(status=status.HTTP_200_OK)
+
     return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
