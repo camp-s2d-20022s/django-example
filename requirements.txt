@@ -3,3 +3,4 @@ django-extensions
 djangorestframework
 ipython
 drf_yasg
+django-cors-headers
