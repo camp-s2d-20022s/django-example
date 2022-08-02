@@ -23,7 +23,8 @@ def api_root(request, format=None):
 @api_view(['GET'])
 def profile(request, format=None):
     if request.method == "GET":
-        return Response({"username": "111", "email": "blackdew@gmail.com"})
+        user = UserSerializer(request.user, context={'request': request})
+        return Response(user.data)
 
 class PostList(generics.ListCreateAPIView):
     queryset = Post.objects.all()
