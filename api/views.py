@@ -1,7 +1,7 @@
 from django.http import Http404
-from rest_framework import status, generics
+from rest_framework import status, generics, permissions
 from rest_framework.parsers import JSONParser
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.views import APIView
@@ -21,6 +21,7 @@ def api_root(request, format=None):
     })
 
 @api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
 def profile(request, format=None):
     if request.method == "GET":
         user = UserSerializer(request.user, context={'request': request})
