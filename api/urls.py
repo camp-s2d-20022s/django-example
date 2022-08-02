@@ -14,5 +14,6 @@ urlpatterns = [
     path('posts/<int:pk>/', views.PostDetail.as_view(), name="post-detail"),
     path('profile/', views.profile, name="profile"),
     path('login/', views.api_login, name="login"),
+    path('logout/', views.api_logout, name="logout"),
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)

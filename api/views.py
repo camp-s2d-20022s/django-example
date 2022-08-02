@@ -1,11 +1,16 @@
+import json
+
 from django.http import Http404
+from django.contrib.auth.models import User
+from django.contrib.auth.hashers import check_password
+from django.contrib.auth import login, logout
+
 from rest_framework import status, generics, permissions
 from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.views import APIView
-from django.contrib.auth.models import User
 
 from blog.models import Post
 from api.models import Snippet
@@ -19,11 +24,9 @@ def api_root(request, format=None):
         'posts': reverse('post-list', request=request, format=format),
         'profile': reverse('profile', request=request, format=format),
         'login': reverse('login', request=request, format=format),
+        'logout': reverse('logout', request=request, format=format),
     })
 
-import json
-from django.contrib.auth.hashers import check_password
-from django.contrib.auth import login
 
 @api_view(['POST'])
 def api_login(request, format=None):
@@ -40,6 +43,14 @@ def api_login(request, format=None):
         login(request, users[0])
         return Response(status=status.HTTP_200_OK)
 
+    return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+@api_view(['GET'])
+def api_logout(request, format=None):
+    if request.method == "GET":
+        logout(request)
+        return Response(status=status.HTTP_200_OK)
     return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
